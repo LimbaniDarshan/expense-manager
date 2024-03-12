@@ -1,0 +1,10 @@
+{% extends "../base.html" %}
+{% block content %}
+<div class="card" style="width: 50rem;">
+    <img class="card-img-top" src="https://source.unsplash.com/500x280/?Description" alt="Card image cap">
+    <div class="card-body">
+        <p class="card-text">DETAIL:- {{expensee.description}}</p> 
+        <p class="card-text">DATE AND TIME:-  {{expensee.expDateTime}}</p> 
+    </div>
+</div>
+{% endblock content %}

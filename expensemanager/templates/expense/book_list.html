@@ -1,0 +1,8 @@
+{% load static %}
+
+<div>
+    {% for b in books %}
+        <h1>{{ b.name }}</h1>
+        <img src="{{ b.bookImage.url }}" alt="book image" style="width: 100px; height: 100px;">
+    {% endfor %}
+</div>

@@ -1,0 +1,108 @@
+{% extends "../base.html" %}
+{% load static %}
+
+
+{% block content %}
+<div class="row">
+   <div class="col-12">
+     <div class="card mb-4">
+       <div class="card-header pb-0">
+         <h6>Expense List</h6>
+         <a href="{% url "expense_create"  %}"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProjectModel" >ADD Expense </a>
+         <p>Total Amount: {{ total_amount }}</p>
+       </div>
+       <div class="card-body px-0 pt-0 pb-2">
+         <div class="table-responsive p-0">
+           <table class="table align-items-center mb-0">
+             <thead>
+               <tr>
+                {% comment %} <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th> {% endcomment %}
+                 <th class="text-uppercase text-dark text-xxs font-weight-bolder opacity-20">Amount</th>
+                 <th class="text-uppercase text-dark text-xxs font-weight-bolder opacity-20 ps-2">DateTime </th>
+                 <th class="text-center text-uppercase text-dark text-xxs font-weight-bolder opacity-20">Status</th>
+                 <th class="text-center text-uppercase text-dark text-xxs font-weight-bolder opacity-20">Catecory</th>
+                 <th class="text-center text-uppercase text-dark text-xxs font-weight-bolder opacity-20">Sub Category</th>
+                 <th class="text-center text-uppercase text-dark text-xxs font-weight-bolder opacity-20">Payment Method</th>
+                 <th class="text-center text-uppercase text-dark text-xxs font-weight-bolder opacity-20">Descriptions</th>
+                 <th class="text-center text-uppercase text-dark text-xxs font-weight-bolder opacity-20">Transaction type</th>
+                 <th class="text-center text-uppercase text-dark text-xxs font-weight-bolder opacity-20">Goal</th>
+                 <th class="text-center text-uppercase text-dark text-xxs font-weight-bolder opacity-20">Actions</th>
+
+                 <th class="text-secondary opacity-7"></th>
+               </tr>
+             </thead>
+             <tbody>
+               
+               {% for expense in expenses %}
+                  
+
+               <tr>
+                 <td>
+                   <div class="d-flex px-2 py-1">
+                     
+                     <div class="d-flex flex-column justify-content-center">
+                       <h6 class="mb-0 text-sm">{{expense.amount}}</h6>
+                       <p class="text-xs text-secondary mb-0"></p>
+                     </div>
+                   </div>
+                 </td>
+                 <td>
+                   <p class="text-xs font-weight-bold mb-0">{{expense.expDateTime}}</p>
+                   {% comment %} <p class="text-xs text-secondary mb-0">Organization</p> {% endcomment %}
+                 </td>
+
+                 <td class="align-middle text-center">
+                  <form action="{% url 'update_status' expense.id %}" method="post">
+                      {% csrf_token %}
+                      <button type="submit" class="btn btn-link p-0 m-0">
+                          <span class="badge badge-sm bg-gradient-success">{{ expense.status }}</span>
+                      </button>
+                  </form>
+                  </td>
+
+                 <td class="align-middle text-center">
+                   <span class="text-secondary text-xs font-weight-bold">{{expense.category}}</span>
+                 </td>
+
+                 <td class="align-middle text-center">
+                   <span class="text-secondary text-xs font-weight-bold">{{expense.subCategory}}</span>
+                 </td>
+
+                 <td class="align-middle text-center">
+                    <span class="text-secondary text-xs font-weight-bold">{{expense.paymentMethod}}</span>
+                  </td>
+
+                  <td class="align-middle text-center">
+                    <span class="text-secondary text-xs font-weight-bold">{{expense.description}}</span>
+                  </td>
+
+                  <td class="align-middle text-center">
+                    <span class="text-secondary text-xs font-weight-bold">{{expense.transactionType}}</span>
+                  </td>
+
+                  <td class="align-middle text-center">
+                    <span class="text-secondary text-xs font-weight-bold">{{expense.goal}}</span>
+                  </td>
+
+                 <td class="align-middle text-center">
+                   <a href = "{% url 'detail_expense' expense.id %}" class="btn btn-info">View</a>
+                   <a href = "{% url 'delete_expense' expense.id %}" class="btn btn-danger">DELETE</a>
+                   <a href = "{% url 'update_expense' expense.id %}" class="btn btn-warning">UPDATE</a>
+                 </td>
+                 
+               </tr>
+               {% endfor %}
+               
+             </tbody>
+             <tfoot>
+              <tr>
+                <td colspan="9" class="text-left"><strong>Total:</strong> {{ total_amount }}</td>
+              </tr>
+            </tfoot>
+           </table>
+         </div>
+       </div>
+     </div>
+   </div>
+ </div>
+{% endblock content %}

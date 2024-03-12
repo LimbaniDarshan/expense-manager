@@ -1,0 +1,69 @@
+
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="piechart.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+
+    
+    <title>PIE CHART</title>
+    <style>
+        #container{
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 40%;
+          }
+        </style>
+</head>
+<body >
+    <h3>PIE CHART</h3>
+    <div id ="container" style ="width:500px; height:500px"  >
+        <canvas id = "pie-chart" ></canvas>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script >
+        var config ={
+            type:'pie',
+            data:{
+                datasets:
+                [
+                    {
+                        
+                        data:{{data|safe}},
+                        backgroundColor:
+                        [
+                            'red',
+                            'blue',
+                            'green',
+                            'yellow',
+                            "brown",
+                            "orange",
+                            "purple",
+                            "indigo",
+                            "cyan",
+                            "black"
+                        ],
+                        label:{{labels | safe}}
+                    }
+                ]
+            },
+            options:{
+                responsive:true
+            }
+        }
+        window.onload = function(){
+            var ctx = document.getElementById('pie-chart').getContext('2d');
+            window.myPie = new Chart(ctx,config);
+        }
+    </script>
+</body>
+</html>
+{% endblock content %}

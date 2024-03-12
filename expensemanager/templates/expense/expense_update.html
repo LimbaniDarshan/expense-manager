@@ -1,0 +1,25 @@
+{% extends "../base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+
+{% block content %}
+<div class="card card-simple">
+<div class="container">
+    <div class="position-relative py-2 px-4">
+        <div class="row">
+            <div class="col-md-50">
+               <H2>UPDATE YOUR EXPENSE</H2>
+
+               <form method="POST">
+                   {% csrf_token %}
+                   {{form|crispy}}
+                   <button type="submit" class="btn btn-primary">UPDATE</button>
+               </form>
+            </div>
+        </div>
+    </div>
+<div>
+
+{% endblock content %}

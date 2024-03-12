@@ -1,0 +1,92 @@
+{% extends "../base.html" %} {% load static %} {% block content %}
+{% load crispy_forms_tags %}
+{% block navbar %}
+                  
+{% endblock navbar %}
+{% block sidebar %}
+    
+{% endblock sidebar %}
+
+<main class="main-content mt-0 ps">
+    <div class="page-header align-items-start min-vh-50 pt-5 pb-11 m-3 border-radius-lg" style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/signup-cover.jpg'); background-position: top;">
+      <span class="mask bg-gradient-dark opacity-6"></span>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-5 text-center mx-auto">
+            <h1 class="text-white mb-2 mt-5">Welcome!</h1>
+            <p class="text-lead text-white">Streamline your expense management effortlessly with our user-friendly login and account creation forms.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row mt-lg-n10 mt-md-n11 mt-n10 justify-content-center">
+        <div class="col-xl-4 col-lg-5 col-md-7 mx-auto">
+          <div class="card z-index-2">
+            <div class="card-header text-center pt-6">
+              <h5>Register for Expense</h5>
+            </div>
+            
+            <div class="card-body">
+              <form role="form" method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <div>
+                        {{form.username|as_crispy_field}}
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div>
+                        {{form.first_name|as_crispy_field}}
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div>
+                        {{form.last_name|as_crispy_field}}
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div>
+                        {{form.email|as_crispy_field}}
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <div>
+                        {{form.phone_number|as_crispy_field}}
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div>
+                        {{form.password1|as_crispy_field}}
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div>
+                        {{form.password2|as_crispy_field}}
+                    </div>
+                </div>
+                {% comment %} <div class="form-check form-check-info text-start">
+                  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked="">
+                  <label class="form-check-label" for="flexCheckDefault">
+                    I agree the <a href="javascript:;" class="text-dark font-weight-bolder">Terms and Conditions</a>
+                  </label> {% endcomment %}
+                </div>
+                <div class="text-center">
+                    {% comment %} <button
+                      type="button"
+                      class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0"
+                    >
+                      Sign in
+                    </button> {% endcomment %}
+                    <input type = "submit" value ="Sign UP" class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0">
+                  </div>
+                <p class="text-sm mt-3 mb-0">Already have an account? <a href="{% url "login" %}" class="text-dark font-weight-bolder">Sign in</a></p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;"></div></div></main>
+{% endblock content %}

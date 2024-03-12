@@ -1,0 +1,76 @@
+{% extends "../base.html" %}
+{% load static %}
+
+
+{% block content %}
+<div class="row">
+   <div class="col-12">
+     <div class="card mb-4">
+       <div class="card-header pb-0">
+         <h6>Goal List</h6>
+         <a href="{% url "goal" %}" class="btn btn-primary" >Add Goal </a>
+         
+       </div>
+       <div class="card-body px-0 pt-0 pb-2">
+         <div class="table-responsive p-0">
+           <table class="table align-items-center mb-0">
+             <thead>
+               <tr>
+                {% comment %} <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th> {% endcomment %}
+                 <th class="text-uppercase text-dark text-xxs font-weight-bolder opacity-20">Plan</th>
+                 <th class="text-uppercase text-dark text-xxs font-weight-bolder opacity-20 ps-2">Max Amount </th>
+                 <th class="text-center text-uppercase text-dark text-xxs font-weight-bolder opacity-20">Status</th>
+                 <th class="text-center text-uppercase text-dark text-xxs font-weight-bolder opacity-20">Start Date</th>
+                 <th class="text-center text-uppercase text-dark text-xxs font-weight-bolder opacity-20">End Date</th>
+                 
+
+                 <th class="text-secondary opacity-7"></th>
+               </tr>
+             </thead>
+             <tbody>
+               
+               {% for go in goal %}
+                  
+
+               <tr>
+                 <td>
+                   <div class="d-flex px-2 py-1">
+                     
+                     <div class="d-flex flex-column justify-content-center">
+                       <h6 class="mb-0 text-sm">{{go.goalName}}</h6>
+                       <p class="text-xs text-secondary mb-0"></p>
+                     </div>
+                   </div>
+                 </td>
+                 <td>
+                   <p class="text-xs font-weight-bold mb-0">{{go.maxAmount}}</p>
+                   {% comment %} <p class="text-xs text-secondary mb-0">Organization</p> {% endcomment %}
+                 </td>
+                 <td class="align-middle text-center">
+                  <form action="{% url 'update_goalstatus' go.id %}" method="post">
+                      {% csrf_token %}
+                      <button type="submit" class="btn btn-link p-0 m-0">
+                          <span class="badge badge-sm bg-gradient-success">{{ go.status }}</span>
+                      </button>
+                  </form>
+              </td>
+                 <td class="align-middle text-center">
+                   <span class="text-secondary text-xs font-weight-bold">{{go.startDate}}</span>
+                 </td>
+                 <td class="align-middle text-center">
+                   <span class="text-secondary text-xs font-weight-bold">{{go.endDate}}</span>
+                 </td>
+                 
+                 
+               </tr>
+               {% endfor %}
+               
+             </tbody>
+             
+           </table>
+         </div>
+       </div>
+     </div>
+   </div>
+ </div>
+{% endblock content %}
