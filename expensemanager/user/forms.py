@@ -8,3 +8,8 @@ class ExpenseCreationForm(UserCreationForm):
         #fields = UserCreationForm.Meta.fields + ('is_manager',)
         fields = ('username','first_name','last_name','email','phone_number','password1','password2')
         
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'email', 'phone_number']
+        

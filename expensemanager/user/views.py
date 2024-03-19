@@ -14,6 +14,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from expense.models import Expense
 from django.contrib.auth import login
+from .forms import *
 # Create your views here.
 
 class ExpenseRegisterView(CreateView):
@@ -60,6 +61,16 @@ class ExpenseDashboardView(ListView):
         })
     
     template_name = 'user/expense_dashboard.html' 
+    
+def edit_profile(request):
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('edit_profile')  # Redirect to the profile page after saving
+    else:
+        form = UserProfileForm(instance=request.user)
+    return render(request, 'user/edit_profile.html', {'form': form})
     
 
     
