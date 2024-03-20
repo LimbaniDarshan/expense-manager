@@ -114,12 +114,7 @@ class GoalListListView(ListView):
     model = ExpenseGoal
     context_object_name = 'goal'
     
-    def get_queryset(self):
-        # Get the logged-in user
-        user = self.request.user
-        # Filter expenses based on the logged-in user
-        queryset = super().get_queryset().filter(user=user)
-        return queryset
+    
     
     
 class UpdateStatusView(View):
@@ -134,7 +129,7 @@ class UpdateStatusView(View):
         if mode.status == "uncleared":
             mode.status = "cleared"
         elif mode.status == "cleared":
-            mode.status = "void"
+            mode.status = "uncleared"
         else:
             mode.status = "cleared"    
         
