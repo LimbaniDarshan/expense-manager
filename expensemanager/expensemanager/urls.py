@@ -26,6 +26,7 @@ urlpatterns = [
     path('user/', include('user.urls')),
     path("about/",views.about,name="about" ),
     path('contact/',views.contact , name='contact'),
+    path('feature/',views.feature , name='feature'),
     
 ]
 if settings.DEBUG:
