@@ -114,6 +114,11 @@ class GoalListListView(ListView):
     model = ExpenseGoal
     context_object_name = 'goal'
     
+class GoalUpdateView(UpdateView):
+    model = ExpenseGoal
+    form_class = GoalForms
+    success_url = "/expense/listgoal/"
+    template_name = "expense/goal_update.html"
     
     
     

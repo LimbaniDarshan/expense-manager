@@ -60,7 +60,10 @@
                  <td class="align-middle text-center">
                    <span class="text-secondary text-xs font-weight-bold">{{go.endDate}}</span>
                  </td>
-                 
+                 <td class="align-middle text-center">
+                  <a href = "{% url 'update_goal' go.id %}" class="btn btn-warning">UPDATE</a>
+
+                </td>
                  
                </tr>
                {% endfor %}

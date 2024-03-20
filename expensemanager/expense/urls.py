@@ -19,6 +19,8 @@ urlpatterns = [
     path("goal/",ExpenseGoalView.as_view(),name="goal"),
     path("listgoal/",GoalListListView.as_view(),name="listgoal"),
     path("goalStatus_update/<int:pk>/",views.GoalUpdateStatusView.as_view(),name="update_goalstatus"),
+    path("goal_update/<int:pk>/",GoalUpdateView.as_view(),name="update_goal"),
+
 
     
     path("status_update/<int:pk>/",views.UpdateStatusView.as_view(),name="update_status"),
