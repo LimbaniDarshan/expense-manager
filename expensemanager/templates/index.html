@@ -30,9 +30,17 @@
         <!-- Add other navbar items as needed -->
       </ul>
       <!-- Move Sign In and Sign Up buttons here -->
+      <!-- Example split danger button -->
+      
       <div class="d-flex">
         <a class="btn btn-primary mx-2" href="{% url 'login' %}">Sign In</a>
-        <a class="btn btn-outline-primary" href="{% url 'expense_register' %}">Sign Up</a>
+        <a class="btn btn-outline-primary  mx-2" href="{% url 'expense_register' %}">Sign Up</a>
+        {% comment %} {% if request.user.is_authenticated %}
+        <a href="{% url "expense_dashboard" %}">{{ request.user }}</a>
+        {% endif %} {% endcomment %}
+          <button type="button" class="btn btn-primary">
+            <a href="{% url "expense_dashboard" %}">{{ request.user }}</a>
+          </button>
       </div>
     </div>
   </div>
@@ -72,6 +80,7 @@
       </div>
     </div>
   <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;"></div></div>
+
 </main>
 {% endblock content %}
 

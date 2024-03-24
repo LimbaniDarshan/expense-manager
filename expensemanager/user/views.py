@@ -41,7 +41,7 @@ class UserLoginView(LoginView):
             
 def logout_view(request):
     logout(request)
-    return redirect('login')
+    return redirect('index')
 
 @method_decorator(login_required, name='dispatch')
 class ExpenseDashboardView(ListView):
