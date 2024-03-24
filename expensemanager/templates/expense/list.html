@@ -105,4 +105,65 @@
      </div>
    </div>
  </div>
+
+ <div class="container">
+  <div class="row">
+    {% for category in categories %}
+    <div class="col-6">
+      <div class="card mb-4">
+        <div class="card-header pb-0">
+          <h6>{{ category }}</h6> <!-- Display the category name -->
+          
+          <hr>
+        </div>
+        <div class="card-body px-0 pt-0 pb-0">
+          <div class="table-responsive p-0">
+            <table class="table align-items-center mb-0">
+              <thead>
+                <tr>
+                  <!-- Add table headers here -->
+                  <th class="text-uppercase text-dark text-xxs font-weight-bolder opacity-20">Amount</th>
+                  <th class="text-uppercase text-dark text-xxs font-weight-bolder opacity-20">Subcategory</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for expense in expenses %}
+                {% if expense.category.categoryName == category %}
+                <tr>
+                  <!-- Add expense details here -->
+                  <td>
+                    <div class="d-flex px-2 py-1">
+                      <div class="d-flex flex-column justify-content-center">
+                        <h6 class="mb-0 text-sm">{{ expense.amount }}</h6>
+                        <p class="text-xs text-secondary mb-0"></p>
+                      </div>
+                    </div>
+                  </td>
+                  <td >
+                    <span class="text-secondary text-xs font-weight-bold">{{ expense.subCategory }}</span>
+                  </td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+              </tbody>
+              <tfoot>
+                <tr>
+                    <td colspan="2" class="text-left"><strong>Total:</strong> 
+                        {% for key, value in total_amount_by_category.items %}
+                            {% if key == category %}
+                                {{ value }}
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                </tr>
+            </tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
 {% endblock content %}

@@ -51,6 +51,20 @@ class ExpenseListView(ListView):
         # Calculate total sum of amounts
         total_amount = self.get_queryset().aggregate(Sum('amount'))['amount__sum']
         context['total_amount'] = total_amount if total_amount else 0
+        # return context
+        
+        expenses_by_category = defaultdict(list)
+        for expense in context['expenses']:
+            expenses_by_category[expense.category.categoryName].append(expense)
+        
+        # Calculate total sum of amounts for each category
+        total_amount_by_category = {}
+        for category, expenses in expenses_by_category.items():
+            total_amount_by_category[category] = sum(expense.amount for expense in expenses)
+        
+        context['categories'] = expenses_by_category.keys()
+        context['expenses_by_category'] = expenses_by_category 
+        context['total_amount_by_category'] = total_amount_by_category if total_amount_by_category else 0
         return context
  
 class ExpenseDetailView(DetailView):
