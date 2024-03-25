@@ -124,6 +124,8 @@
                   <!-- Add table headers here -->
                   <th class="text-uppercase text-dark text-xxs font-weight-bolder opacity-20">Amount</th>
                   <th class="text-uppercase text-dark text-xxs font-weight-bolder opacity-20">Subcategory</th>
+                  <th class=" text-uppercase text-dark text-xxs font-weight-bolder opacity-20">Date</th>
+
                 </tr>
               </thead>
               <tbody>
@@ -142,7 +144,11 @@
                   <td >
                     <span class="text-secondary text-xs font-weight-bold">{{ expense.subCategory }}</span>
                   </td>
+                  <td >
+                    <span class="text-secondary text-xs font-weight-bold">{{expense.expDateTime}}</span>
+                  </td>
                 </tr>
+                
                 {% endif %}
                 {% endfor %}
               </tbody>

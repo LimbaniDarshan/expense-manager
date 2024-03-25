@@ -24,6 +24,6 @@ urlpatterns = [
 
     
     path("status_update/<int:pk>/",views.UpdateStatusView.as_view(),name="update_status"),
-
+    path("barchart/",views.barChart,name="barchart"),
     
 ]

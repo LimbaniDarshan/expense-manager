@@ -180,3 +180,23 @@ class GoalUpdateStatusView(View):
         stage.save()
         
         return redirect(reverse('listgoal')) #lazy reverse
+    
+    
+def barChart(request):
+    labels =[]
+    data =[]
+    
+    queryset = Expense.objects.order_by('-amount')[:8]  
+    print(queryset)
+    
+    
+    for expense in queryset:
+        labels.append(expense.category.categoryName)  # Accessing the categoryName through the ForeignKey
+        print(labels)
+        data.append(expense.amount)
+        print(data)
+        
+    return render(request, 'expense/chart.html',{
+    'labels':labels,
+    'data':data
+    })  
