@@ -46,41 +46,49 @@
   </div>
 </nav>
 
-<main class="main-content mt-0 ps">
-    <div class="page-header align-items-start min-vh-50 pt-5 pb-11 m-3 border-radius-lg" style="background-image: url('https://source.unsplash.com/500x280/?budget'); background-position: top;">
-      <span class="mask bg-gradient-dark opacity-6"></span>
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-lg-5 text-center mx-auto">
-            <h1 class="text-white mb-2 mt-5">Welcome!</h1>
-            <p class="text-lead text-white">Streamline your expense management effortlessly with our user-friendly login and account creation forms.</p>
+<main class="main-content">
+  <div class="container-fluid">
+      <div class="row justify-content-center align-items-center vh-100">
+          <div class="col-md-8">
+              <div class="row">
+                  <div class="col-md-6">
+                      <h1 class="display-4 mb-4">Welcome to Your Expense Manager</h1>
+                      <p class="lead">Effortlessly track your expenses and manage your budget with our user-friendly platform.</p>
+                      <a href="{% url 'login' %}" class="btn btn-primary btn-lg me-3">Sign In</a>
+                      <a href="{% url 'expense_register' %}" class="btn btn-outline-primary btn-lg">Sign Up</a>
+                  </div>
+                  <div class="col-md-6">
+                      <img src="https://source.unsplash.com/500x280/?budget" alt="Expense Manager" class="img-fluid">
+                  </div>
+              </div>
           </div>
-        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-md-6">
-        <h2>Expense Tracking</h2>
-        <p>Keep track of your expenses easily with our intuitive expense tracking feature. Record your expenses, categorize them, and view detailed reports to gain insights into your spending habits.</p>
-      </div>
-      <div class="col-md-6">
-        <h2>Budget Management</h2>
-        <p>Set budgets for different expense categories and monitor your spending against these budgets. Receive notifications when you're approaching or exceeding your budget limits.</p>
-      </div>
-    </div>
-  
-    <div class="row mt-5">
-      <div class="col-md-6">
-        <h2>Multiple Accounts</h2>
-        <p>Manage multiple accounts and currencies in one place. Whether you have personal, business, or joint accounts, our expense manager can handle them all.</p>
-      </div>
-      <div class="col-md-6">
-        <h2>Expense Reports</h2>
-        <p>Generate detailed expense reports for better financial planning and analysis. Export reports in various formats such as PDF or CSV for sharing or printing purposes.</p>
-      </div>
-    </div>
-  <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;"></div></div>
+  </div>
 
+  <section class="py-5 bg-light">
+      <div class="container">
+          <div class="row">
+              <div class="col-md-6">
+                  <h2>Track Your Expenses</h2>
+                  <p>Effortlessly record and categorize your expenses to gain insights into your spending habits.</p>
+              </div>
+              <div class="col-md-6">
+                  <h2>Manage Your Budget</h2>
+                  <p>Set budgets for different categories and receive alerts when you're approaching your limits.</p>
+              </div>
+          </div>
+          <div class="row mt-4">
+              <div class="col-md-6">
+                  <h2>Multiple Accounts</h2>
+                  <p>Manage multiple accounts and currencies in one centralized platform.</p>
+              </div>
+              <div class="col-md-6">
+                  <h2>Generate Reports</h2>
+                  <p>Generate detailed reports to analyze your spending patterns and make informed financial decisions.</p>
+              </div>
+          </div>
+      </div>
+  </section>
 </main>
 {% endblock content %}
 
