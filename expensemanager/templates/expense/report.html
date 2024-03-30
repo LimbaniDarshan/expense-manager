@@ -1,0 +1,40 @@
+{% extends "../base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="mb-0">Expense Report</h2>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Month</th>
+                                    <th class="text-center">Total Expense</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for expense in expenses_by_month %}
+                                <tr>
+                                    <td class="text-center">{{ expense.month|date:"F Y" }}</td>
+                                    <td class="text-center">₹{{ expense.total_amount }}</td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="2" class="text-center">No expenses found.</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

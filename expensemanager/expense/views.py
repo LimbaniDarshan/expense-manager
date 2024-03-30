@@ -20,7 +20,14 @@ from django.contrib import messages
 import datetime
 from django.db.models.functions import TruncMonth  # Import TruncMonth
 
+@login_required
+def expense_report(request):
+    # Get expenses for the logged-in user and group by month
+    expenses_by_month = Expense.objects.filter(user=request.user).annotate(
+        month=TruncMonth('expDateTime')
+    ).values('month').annotate(total_amount=Sum('amount')).order_by('month')
 
+    return render(request, 'expense/report.html', {'expenses_by_month': expenses_by_month})
 
 class ExpenseCreationView(CreateView):
     template_name = 'expense/create.html'

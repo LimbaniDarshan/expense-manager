@@ -10,7 +10,8 @@ urlpatterns = [
     path("detail/<int:pk>/",ExpenseDetailView.as_view(),name="detail_expense"),
     path("delete/<int:pk>/",ExpenseDeleteView.as_view(),name="delete_expense"),
     path("update/<int:pk>/",ExpenseUpdateView.as_view(),name="update_expense"),
-    
+    path('expense-report/', expense_report, name='expense_report'),
+
     path ("chart/",views.pieChart,name="chart"),
     
     path("book_create/",BookCreateView.as_view(),name="book_create"),
