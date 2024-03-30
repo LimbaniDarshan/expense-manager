@@ -50,7 +50,11 @@
                   <form action="{% url 'update_goalstatus' go.id %}" method="post">
                       {% csrf_token %}
                       <button type="submit" class="btn btn-link p-0 m-0">
-                          <span class="badge badge-sm bg-gradient-success">{{ go.status }}</span>
+                          {% if go.status == 'active' %}
+                              <span class="badge badge-sm bg-gradient-success">{{ go.status }}</span>
+                          {% else %}
+                              <span class="badge badge-sm bg-gradient-warning">{{ go.status }}</span>
+                          {% endif %}
                       </button>
                   </form>
               </td>
@@ -62,6 +66,7 @@
                  </td>
                  <td class="align-middle text-center">
                   <a href = "{% url 'update_goal' go.id %}" class="btn btn-warning">UPDATE</a>
+                  <a href="{% url 'delete_goalStatus' go.id %}" class="btn btn-danger">Delete</a>
 
                 </td>
                  

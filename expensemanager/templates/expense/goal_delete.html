@@ -1,0 +1,17 @@
+{% extends "../base.html" %}
+{% block content %}
+<form method="POST">
+    <p> </p>
+    {% csrf_token %}
+    <div class="card" style="width: 50rem;">
+        <img class="card-img-top" src="https://source.unsplash.com/500x280/?coding" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Delete warning ..!!!</h5>
+          <p class="card-text">If you delete this information than you loss your Goal.</p>
+          <input type="submit" value="DELETE" class="btn btn-danger"/>
+        </div>
+      </div>
+    
+    
+</form>
+{% endblock content %}

@@ -45,6 +45,7 @@ goalStatus = (
     
 )    
 class ExpenseGoal(models.Model):
+    user= models.ForeignKey(User,on_delete=models.CASCADE,null= True)
     goalName = models.CharField(max_length=100) 
     maxAmount = models.PositiveIntegerField()
     startDate =models.DateField()

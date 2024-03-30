@@ -8,8 +8,17 @@
      <div class="card mb-4">
        <div class="card-header pb-0">
          <h6>Expense List</h6>
+         <div>
+          {% if messages %}
+          {% for message in messages %}
+              <div class="alert alert-{{ message.tags }}" role="alert">
+                  {{ message }}
+              </div>
+          {% endfor %}
+          {% endif %}
+            </div>
          <a href="{% url "expense_create"  %}"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProjectModel" >ADD Expense </a>
-         <p>Total Amount: {{ total_amount }}</p>
+         
        </div>
        <div class="card-body px-0 pt-0 pb-2">
          <div class="table-responsive p-0">
@@ -55,10 +64,16 @@
                   <form action="{% url 'update_status' expense.id %}" method="post">
                       {% csrf_token %}
                       <button type="submit" class="btn btn-link p-0 m-0">
-                          <span class="badge badge-sm bg-gradient-success">{{ expense.status }}</span>
+                          {% if expense.status == 'cleared' %}
+                              <span class="badge badge-sm bg-gradient-success">{{ expense.status }}</span>
+                          {% elif expense.status == 'uncleared' %}
+                              <span class="badge badge-sm bg-gradient-danger">{{ expense.status }}</span>
+                          {% else %}
+                              <span class="badge badge-sm bg-gradient-warning">{{ expense.status }}</span>
+                          {% endif %}
                       </button>
                   </form>
-                  </td>
+              </td>
 
                  <td class="align-middle text-center">
                    <span class="text-secondary text-xs font-weight-bold">{{expense.category}}</span>

@@ -16,6 +16,9 @@ from django.db.models import Sum
 from django.urls import reverse
 from django.views import View
 from collections import defaultdict
+from django.contrib import messages
+import datetime
+from django.db.models.functions import TruncMonth  # Import TruncMonth
 
 
 
@@ -25,8 +28,30 @@ class ExpenseCreationView(CreateView):
     form_class = AddExpenseForm
     success_url = '/expense/list/'
     
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        # Filter the 'goal' field queryset based on the logged-in user
+        form.fields['goal'].queryset = form.fields['goal'].queryset.filter(user=self.request.user)
+        return form
+    
     def form_valid(self, form):
         form.instance.user = self.request.user  # Assigning the logged-in user to the 'user' field
+        expense = form.save(commit=False) 
+        
+        if expense.goal:
+            # Check if the expense amount exceeds the maximum amount of the goal
+            if expense.amount > expense.goal.maxAmount:
+                messages.error(self.request, "Expense amount exceeds the maximum amount allowed for this goal.")
+                return super().form_invalid(form)
+            else:
+                # Deduct the expense amount from the remaining amount of the goal
+                expense.goal.maxAmount -= expense.amount
+                expense.goal.save()
+                messages.success(self.request, "Expense added successfully. Amount deducted from the goal.")
+        
+        expense.save()
+
+        messages.success(self.request, "Expense added successfully.")
         return super().form_valid(form)
     
 
@@ -124,17 +149,39 @@ class ExpenseGoalView(CreateView):
     success_url = '/expense/listgoal/'
     fields = ['goalName','maxAmount','startDate','endDate','status']
     
+    def get(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('login')  # Redirect to login page if user is not authenticated
+        return super().get(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user  # Associate the current user with the created goal
+        return super().form_valid(form)
+    
 class GoalListListView(ListView):
     template_name = 'expense/listgoal.html'
     model = ExpenseGoal
     context_object_name = 'goal'
+    
+    def get(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('login')  # Redirect to login page if user is not authenticated
+        return super().get(request, *args, **kwargs)
+    
+    def get_queryset(self):
+        # Filter goals based on the logged-in user
+        return ExpenseGoal.objects.filter(user=self.request.user)
     
 class GoalUpdateView(UpdateView):
     model = ExpenseGoal
     form_class = GoalForms
     success_url = "/expense/listgoal/"
     template_name = "expense/goal_update.html"
-    
+
+class GoalDeleteView(DeleteView):
+    model = ExpenseGoal
+    success_url = "/expense/listgoal/"
+    template_name = "expense/goal_delete.html"
     
     
 class UpdateStatusView(View):
@@ -162,24 +209,21 @@ class UpdateStatusView(View):
 class GoalUpdateStatusView(View):
     
     def post(self, request, pk):
-        # Get the task instance
-        print("pk....",pk)
-        stage = Expense.objects.get(id=pk)
-        print("task....",stage)
+        # Get the goal instance
+        goal = ExpenseGoal.objects.get(id=pk)
         
         # Check the current status and update it accordingly
-        if stage.status == "not-active":
-            stage.status = "active"
-        elif stage.status == "active":
-            stage.status = "paused"
+        if goal.status == "not-active":
+            goal.status = "active"
+        elif goal.status == "active":
+            goal.status = "paused"
         else:
-            stage.status = "active"    
+            goal.status = "not-active"
         
+        # Save the updated goal
+        goal.save()
         
-        # Save the updated task
-        stage.save()
-        
-        return redirect(reverse('listgoal')) #lazy reverse
+        return redirect(reverse('listgoal'))  # Redirect to the goal list page after updating the status
     
     
 def barChart(request):
