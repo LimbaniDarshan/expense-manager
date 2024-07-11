@@ -25,7 +25,7 @@ class ExpenseRegisterView(CreateView):
     
     
     def form_valid(self, form):
-        form.instance.user = self.request.user  # Assigning the logged-in user to the 'user' field
+        form.instance.user = self.request.user  # user to the 'user' field
         return super().form_valid(form)
     
 class UserLoginView(LoginView):  
